@@ -1,0 +1,31 @@
+{
+  "name": "petercoles/themes",
+  "type": "library",
+  "description": "Opinionated theme manager for Laravel",
+  "keywords": ["themes", "laravel"],
+  "homepage": "https://github.com/petercoles/themes",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Peter Coles",
+      "email": "peterdcoles@gmail.com",
+      "homepage": "http://petercoles.com"
+    }
+  ],
+    "support": {
+        "issues": "https://github.com/petercoles/themes/issues"
+    },
+  "require": {
+    "php": ">=5.6.0",
+    "illuminate/config": "~5",
+    "illuminate/http": "~5"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~5.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Themes\\": "src/"
+    }
+  }
+}
