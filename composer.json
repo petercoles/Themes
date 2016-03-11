@@ -21,11 +21,15 @@
     "illuminate/http": "~5"
   },
   "require-dev": {
-    "phpunit/phpunit": "~5.0"
+    "phpunit/phpunit": "~5.0",
+    "mockery/mockery": "^0.9.4"
   },
   "autoload": {
     "psr-4": {
       "Themes\\": "src/"
-    }
+    },
+    "files": [
+        "src/helpers.php"
+    ]
   }
 }
