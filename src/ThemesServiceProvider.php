@@ -30,5 +30,9 @@ class ThemesServiceProvider extends ServiceProvider
 
             return new FileViewFinder($app['files'], $paths);
         });
+
+        $this->app->singleton('themes', function($app) {
+            return new Themes;
+        });
     }
 }

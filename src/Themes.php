@@ -4,6 +4,32 @@ namespace Themes;
 
 class Themes
 {
+    protected $context;
+
+    protected $theme;
+
+    /**
+     * Set the request context: admin or site (at present).
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return boolean
+     */
+    public function setContext($request)
+    {
+        $this->context = $this->adminContext($request) ? 'admin' : 'site';
+    }
+
+    /**
+     * get the name of the theme for this context.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return boolean
+     */
+    public function setTheme($request)
+    {
+        $this->theme = app('config')->get("themes.$this->context.theme");
+    }
+
     /**
      * Add paths for current and default themes to the list that Laravel searches.
      *
@@ -12,19 +38,12 @@ class Themes
      */
     public function addThemePaths($request)
     {
-        // set the request context: admin or site
-        $context = $this->adminContext($request) ? 'admin' : 'site';
-
-        // get the name of the theme for this context
-        $theme = app('config')->get("themes.$context.theme");
-
-        // add default and theme paths to Laravel's view finder path list
-        app('view.finder')->addLocation(base_path("resources/$context/default/views"));
-        app('view.finder')->addLocation(base_path("resources/$context/$theme/views"));
+        app('view.finder')->addLocation(base_path("resources/$this->context/default/views"));
+        app('view.finder')->addLocation(base_path("resources/$this->context/$this->theme/views"));
     }
 
     /**
-     * Determine the context, public site, or admin area, of an incoming request.
+     * Determine the context: public site, or admin area, of an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return boolean
