@@ -17,7 +17,7 @@ if (! function_exists('themes_path')) {
 
 if (! function_exists('theme_asset')) {
     /**
-     * Generate an asset path for the application.
+     * Generate an asset path for the theme asset.
      *
      * @param  string  $path
      * @return string
@@ -42,7 +42,7 @@ if (! function_exists('theme_asset')) {
 
 if (! function_exists('secure_theme_asset')) {
     /**
-     * Generate an asset path for the application.
+     * Generate a secure asset path for the theme asset.
      *
      * @param  string  $path
      * @return string
