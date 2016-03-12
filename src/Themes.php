@@ -19,6 +19,11 @@ class Themes
         $this->context = $this->adminContext($request) ? 'admin' : 'site';
     }
 
+    public function getContext()
+    {
+        return $this->context;
+    }
+
     /**
      * get the name of the theme for this context.
      *
@@ -28,6 +33,11 @@ class Themes
     public function setTheme($request)
     {
         $this->theme = app('config')->get("themes.$this->context.theme");
+    }
+
+    public function getTheme()
+    {
+        return $this->theme;
     }
 
     /**
