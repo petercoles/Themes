@@ -1,41 +1,119 @@
 <?php
 
+namespace Themes;
+
 use Mockery as m;
 
 /*
- * For unit testing we mock the Laravel application container
+ * For unit testing we return mocks of the relevant classes
+ * that would be bound to the Laravel application container
  */
-function app($index)
+function app($class)
 {
-    $app = m::mock('Illuminate\Foundation\Application');
-    $app->shouldReceive('asset')->with('foo', null)->andReturn('http://test.dev/foo');
-    $app->shouldReceive('asset')->with('foo', true)->andReturn('https://test.dev/foo');
+    if ($class == 'url') {
+        return AssetTest::$url;
+    }
 
-    return $app;
+    if ($class == 'themes') {
+        return AssetTest::$themes;
+    }
+}
+
+/*
+ * We simulate the public_path function 
+ */
+function public_path($path)
+{
+    return "/home/test/public/$path";
+}
+
+/*
+ * The global PHP function file_exists() will need to return contextually-relevant data,
+ * and so with simulate it with a mock that can be fed test-appropriate responses
+ */
+function file_exists($path)
+{
+    return AssetTest::$globals->file_exists($path);
 }
 
 class AssetTest extends \PHPUnit_Framework_TestCase
 {
-    public function testThemeAsset()
-    {
-        $result = theme_asset('foo');
+    public static $url;
+    public static $themes;
+    public static $globals;
 
-        $this->assertEquals('http://test.dev/foo', $result);
+    public function setUp()
+    {
+        self::$url = m::mock('\Illuminate\Routing\UrlGenerator');
+        self::$themes = m::mock('\Themes\Themes');
+        self::$globals = m::mock();
     }
 
-    public function testThemeAssetForcedSecure()
+    protected function buildContainer($context, $theme, $secure = null)
     {
-        $result = theme_asset('foo', true);
+        self::$themes->shouldReceive('getContext')->andReturn($context);
+        self::$themes->shouldReceive('getTheme')->andReturn($theme);
 
-        $this->assertEquals('https://test.dev/foo', $result);
+        $scheme = $secure ? 'https' : 'http';
+
+        if ($theme) {
+            self::$url->shouldReceive('asset')->with("$context/$theme/css/main.css", null)->andReturn("$scheme://test.dev/$context/$theme/css/main.css");
+        } else {
+            self::$url->shouldReceive('asset')->with("css/main.css", null)->andReturn("$scheme://test.dev/css/main.css");
+        }
     }
 
-    public function testSecureThemeAsset()
+    public function testSiteAsset()
     {
-        $result = secure_theme_asset('foo');
+        $this->buildContainer('site', 'foo');
+        self::$globals->shouldReceive('file_exists')->with('/home/test/public/site/foo/css/main.css')->andReturn(true);
 
-        $this->assertEquals('https://test.dev/foo', $result);
+        $asset = theme_asset('css/main.css');
+
+        $this->assertEquals('http://test.dev/site/foo/css/main.css', $asset);
     }
+
+    public function testSiteDefaultAsset()
+    {
+        $this->buildContainer('site', 'default');
+        self::$globals->shouldReceive('file_exists')->with('/home/test/public/site/foo/css/main.css')->andReturn(false);
+        self::$globals->shouldReceive('file_exists')->with('/home/test/public/site/default/css/main.css')->andReturn(true);
+
+        $asset = theme_asset('css/main.css');
+
+        $this->assertEquals('http://test.dev/site/default/css/main.css', $asset);
+    }
+
+    public function testSiteCommonAsset()
+    {
+        $this->buildContainer('site', null);
+        self::$globals->shouldReceive('file_exists')->with('/home/test/public/site/default/css/main.css')->andReturn(false);
+
+        $asset = theme_asset('css/main.css');
+
+        $this->assertEquals('http://test.dev/css/main.css', $asset);
+    }
+
+    public function testSecureSiteAsset()
+    {
+        $this->buildContainer('site', 'foo', true);
+        self::$globals->shouldReceive('file_exists')->with('/home/test/public/site/foo/css/main.css')->andReturn(true);
+
+        $asset = theme_asset('css/main.css');
+
+        $this->assertEquals('https://test.dev/site/foo/css/main.css', $asset);
+    }
+
+    public function testAdminAsset()
+    {
+        $this->buildContainer('admin', 'foo');
+        self::$globals->shouldReceive('file_exists')->with('/home/test/public/admin/foo/css/main.css')->andReturn(true);
+
+        $asset = theme_asset('css/main.css');
+
+        $this->assertEquals('http://test.dev/admin/foo/css/main.css', $asset);
+    }
+
 
     public function tearDown()
     {
