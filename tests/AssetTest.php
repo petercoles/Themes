@@ -8,8 +8,15 @@ use Mockery as m;
  * For unit testing we return mocks of the relevant classes
  * that would be bound to the Laravel application container
  */
-function app($class)
+function app($class = null)
 {
+    if (!$class) {
+        $app = m::mock('\Illuminate\Foundation\Application');
+        $app->shouldReceive('basePath')->withNoArgs()->andReturn('/home/test');
+        $app->shouldReceive('basePath')->with('foo/bar')->andReturn('/home/test/themes/foo/bar');
+        return $app;
+    }
+
     if ($class == 'url') {
         return AssetTest::$url;
     }
@@ -61,6 +68,20 @@ class AssetTest extends \PHPUnit_Framework_TestCase
         } else {
             self::$url->shouldReceive('asset')->with("css/main.css", null)->andReturn("$scheme://test.dev/css/main.css");
         }
+    }
+
+    public function testThemesPathNoParam()
+    {
+        $path = themes_path();
+
+        $this->assertEquals('/home/test/themes', $path);
+    }
+
+    public function testThemesPathWithParam()
+    {
+        $path = themes_path('foo/bar');
+
+        $this->assertEquals('/home/test/themes/foo/bar', $path);
     }
 
     public function testSiteAsset()

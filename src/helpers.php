@@ -2,6 +2,19 @@
 
 namespace Themes;
 
+if (! function_exists('themes_path')) {
+    /**
+     * Get the path to the themes folder.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    function themes_path($path = '')
+    {
+        return app()->basePath().DIRECTORY_SEPARATOR.'themes'.($path ? DIRECTORY_SEPARATOR.$path : $path);
+    }
+}
+
 if (! function_exists('theme_asset')) {
     /**
      * Generate an asset path for the application.
