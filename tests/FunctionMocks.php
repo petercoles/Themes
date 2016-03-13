@@ -26,11 +26,11 @@ function app($class = null)
     }
 
     if ($class == 'config') {
-        return ThemesTest::$config;
+        return AbstractBaseTest::$config;
     }
 
     if ($class == 'view.finder') {
-        return ThemesTest::$finder;
+        return AbstractBaseTest::$finder;
     }
 }
 

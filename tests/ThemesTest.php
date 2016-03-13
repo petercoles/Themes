@@ -4,11 +4,8 @@ namespace Themes;
 
 use Mockery as m;
 
-class ThemesTest extends \PHPUnit_Framework_TestCase
+class ThemesTest extends AbstractBaseTest
 {
-    public static $config;
-    public static $finder;
-
     public function setUp()
     {
         self::$config = m::mock('\\Illuminate\\Config\\Repository');
@@ -47,10 +44,5 @@ class ThemesTest extends \PHPUnit_Framework_TestCase
         $this->themes->setTheme($this->request);
 
         $this->assertEquals('foo', $this->themes->getTheme());
-    }
-
-    public function tearDown()
-    {
-        m::close();
     }
 }

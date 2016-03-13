@@ -4,7 +4,7 @@ namespace Themes;
 
 use Mockery as m;
 
-class AssetTest extends \PHPUnit_Framework_TestCase
+class AssetTest extends AbstractBaseTest
 {
     public static $url;
     public static $themes;
@@ -81,10 +81,5 @@ class AssetTest extends \PHPUnit_Framework_TestCase
         $asset = theme_asset('css/main.css');
 
         $this->assertEquals('https://test.dev/foo/css/main.css', $asset);
-    }
-
-    public function tearDown()
-    {
-        m::close();
     }
 }
