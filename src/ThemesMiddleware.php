@@ -15,14 +15,8 @@ class ThemesMiddleware
      */
     public function handle($request, Closure $next)
     {
-        // set the request context: admin or site
-        app('themes')->setContext($request);
-
-        // get the name of the theme for this context
+        // determine and apply the theme for this request
         app('themes')->setTheme($request);
-
-        // add paths to the theme's views
-        app('themes')->addThemePaths($request);
 
         return $next($request);
     }

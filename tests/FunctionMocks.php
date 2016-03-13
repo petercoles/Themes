@@ -24,6 +24,14 @@ function app($class = null)
     if ($class == 'themes') {
         return AssetTest::$themes;
     }
+
+    if ($class == 'config') {
+        return ThemesTest::$config;
+    }
+
+    if ($class == 'view.finder') {
+        return ThemesTest::$finder;
+    }
 }
 
 /*

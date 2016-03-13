@@ -4,25 +4,7 @@ namespace Themes;
 
 class Themes
 {
-    protected $context;
-
-    protected $theme;
-
-    /**
-     * Set the request context: admin or site (at present).
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return boolean
-     */
-    public function setContext($request)
-    {
-        $this->context = $this->adminContext($request) ? 'admin' : 'site';
-    }
-
-    public function getContext()
-    {
-        return $this->context;
-    }
+    protected $theme = null;
 
     /**
      * get the name of the theme for this context.
@@ -32,7 +14,8 @@ class Themes
      */
     public function setTheme($request)
     {
-        $this->theme = app('config')->get("themes.$this->context.theme");
+        $this->matchRules($request);
+        $this->addThemePath();
     }
 
     public function getTheme()
@@ -41,15 +24,31 @@ class Themes
     }
 
     /**
-     * Add paths for current and default themes to the list that Laravel searches.
+     * Add path for current theme's views to the list that Laravel searches.
+     *
+     * @return void
+     */
+    protected function addThemePath()
+    {
+        if ($this->theme) {
+           app('view.finder')->addLocation(themes_path($this->theme . '/views'));
+        }
+    }
+
+    /**
+     * Determine the context: public site, or admin area, of an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return boolean
+     * @return void
      */
-    public function addThemePaths($request)
+    protected function matchRules($request)
     {
-        app('view.finder')->addLocation(base_path("resources/$this->context/default/views"));
-        app('view.finder')->addLocation(base_path("resources/$this->context/$this->theme/views"));
+        foreach (app('config')->get('themes') as $rule)
+        {
+            if ($this->testForMatch($request, $rule)) {
+                break;
+            }
+        }
     }
 
     /**
@@ -58,10 +57,31 @@ class Themes
      * @param  \Illuminate\Http\Request  $request
      * @return boolean
      */
-    protected function adminContext($request)
+    protected function testForMatch($request, $rule)
     {
-        $adminId = app('config')->get('themes.admin.id');
+        // Check validity of rules provided
+        if (!isset($rule['match'])) {
+            if (!isset($rule['theme'])) {
+                $rule['theme'] = null;
+            }
 
-        return (!is_null($adminId) && (strpos($request->getHost(), $adminId) === 0 || $request->segment(1) == $adminId));
+            // If there's a theme, but nothing to match against, set the theme
+            // This is the default state of the config file
+            $this->theme = $rule['theme'];
+            return true;
+        }
+
+        // Iterate over the rules to be matched. If any fail, return false
+        foreach ($rule['match'] as $type => $match) {
+            $class = '\\Themes\\Matchers\\' . studly_case($type);
+
+            if (! (new $class)->handle($request, $match)) {
+                return false;
+            }
+        }
+
+        // Since all rules matched, set the theme and return true
+        $this->theme = $rule['theme'];
+        return true;
     }
 }
