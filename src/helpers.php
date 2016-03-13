@@ -17,7 +17,7 @@ if (! function_exists('themes_path')) {
 
 if (! function_exists('theme_asset')) {
     /**
-     * Generate an asset path for the theme asset.
+     * Generate an asset path for the application.
      *
      * @param  string  $path
      * @return string
@@ -26,14 +26,8 @@ if (! function_exists('theme_asset')) {
     {
         $theme = app('themes')->getTheme();
 
-        $context = app('themes')->getContext();
-
-        if ($theme && file_exists(public_path("$context/$theme/$path"))) {
-            return app('url')->asset("$context/$theme/$path", $secure);
-        }
-
-        if (file_exists(public_path("$context/default/$path"))) {
-            return app('url')->asset("$context/default/$path", $secure);
+        if ($theme && file_exists(public_path("$theme/$path"))) {
+            return app('url')->asset("$theme/$path", $secure);
         }
 
         return app('url')->asset($path, $secure);
