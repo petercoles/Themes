@@ -2,7 +2,7 @@
 
 namespace Themes\Matchers;
 
-class HttpScheme
+class HttpScheme extends MatcherInterface
 {
     public function handle($request, $match)
     {

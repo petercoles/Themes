@@ -4,7 +4,7 @@ namespace Themes\Matchers;
 
 use RunTimeException;
 
-class Dates
+class Dates extends MatcherInterface
 {
     public function handle($request, $match)
     {
@@ -31,6 +31,5 @@ class Dates
         }
 
         return true;
-
     }
 }
