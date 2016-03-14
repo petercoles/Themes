@@ -72,7 +72,7 @@ class Themes
      */
     protected function explodeRules($rules)
     {
-        $rules = preg_replace('/\s+/','', $rules);
+        $rules = preg_replace('/\s+/', '', $rules);
         return explode('|', $rules);
     }
 
@@ -85,7 +85,7 @@ class Themes
     {
         $rule = explode(':', $rule);
         $params = isset($rule[1]) ? $rule[1] : null;
-        $class = '\\Themes\\Matchers\\' . studly_case($rule[0]);
+        $class = '\\Themes\\Matchers\\'.studly_case($rule[0]);
 
         return (new $class)->handle($request, $params);
     }
@@ -98,7 +98,7 @@ class Themes
     protected function addThemePath()
     {
         if ($this->theme) {
-            app('view.finder')->addLocation(themes_path($this->theme . '/views'));
+            app('view.finder')->addLocation(themes_path($this->theme.'/views'));
         }
     }
 }
