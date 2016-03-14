@@ -2,7 +2,7 @@
 
 namespace Themes;
 
-if (! function_exists('themes_path')) {
+if (!function_exists('themes_path')) {
     /**
      * Get the path to the themes folder.
      *
@@ -15,7 +15,7 @@ if (! function_exists('themes_path')) {
     }
 }
 
-if (! function_exists('theme_asset')) {
+if (!function_exists('theme_asset')) {
     /**
      * Generate an asset path for the application.
      *
@@ -34,7 +34,7 @@ if (! function_exists('theme_asset')) {
     }
 }
 
-if (! function_exists('secure_theme_asset')) {
+if (!function_exists('secure_theme_asset')) {
     /**
      * Generate a secure asset path for the theme asset.
      *

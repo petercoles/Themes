@@ -18,7 +18,7 @@ class Themes
         $this->addThemePath();
     }
 
-   /**
+    /**
      * Getter for the theme that is chosen.
      *
      * @return string theme
@@ -90,7 +90,7 @@ class Themes
         return (new $class)->handle($request, $params);
     }
 
-   /**
+    /**
      * Add path for current theme's views to the list that Laravel searches.
      *
      * @return void
@@ -98,7 +98,7 @@ class Themes
     protected function addThemePath()
     {
         if ($this->theme) {
-           app('view.finder')->addLocation(themes_path($this->theme . '/views'));
+            app('view.finder')->addLocation(themes_path($this->theme . '/views'));
         }
     }
 }
