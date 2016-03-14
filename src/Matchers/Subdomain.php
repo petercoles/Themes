@@ -2,7 +2,7 @@
 
 namespace Themes\Matchers;
 
-class Subdomain extends MatcherInterface
+class Subdomain implements MatcherInterface
 {
     public function handle($request, $match)
     {

@@ -2,7 +2,7 @@
 
 namespace Themes\Matchers;
 
-class UrlSegment extends MatcherInterface
+class UrlSegment implements MatcherInterface
 {
     public function handle($request, $match)
     {

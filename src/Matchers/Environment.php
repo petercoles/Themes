@@ -2,7 +2,7 @@
 
 namespace Themes\Matchers;
 
-class Environment extends MatcherInterface
+class Environment implements MatcherInterface
 {
     public function handle($request, $match)
     {

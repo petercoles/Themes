@@ -2,7 +2,7 @@
 
 namespace Themes\Matchers;
 
-class Domain extends MatcherInterface
+class Domain implements MatcherInterface
 {
     public function handle($request, $match)
     {
