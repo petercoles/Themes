@@ -37,7 +37,7 @@ class ThemesServiceProvider extends ServiceProvider
      */
     protected function registerViewFinder()
     {
-        $this->app['view.finder'] = $this->app->bind(function($app) {
+        $this->app['view.finder'] = $this->app->share(function($app) {
             $paths = $app['config']['view.paths'];
 
             return new FileViewFinder($app['files'], $paths);
