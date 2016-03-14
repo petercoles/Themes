@@ -25,13 +25,33 @@ class ThemesServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->registerViewFinder();
+
+        $this->registerThemes();
+    }
+
+    /**
+     * Re-register the view finder to use use local copy.
+     *
+     * @return void
+     */
+    protected function registerViewFinder()
+    {
         $this->app['view.finder'] = $this->app->share(function($app) {
             $paths = $app['config']['view.paths'];
 
             return new FileViewFinder($app['files'], $paths);
         });
+    }
 
-        $this->app->singleton('themes', function($app) {
+    /**
+     * Register the themes service.
+     *
+     * @return void
+     */
+    protected function registerThemes()
+    {
+        $this->app->singleton('themes', function() {
             return new Themes;
         });
     }
