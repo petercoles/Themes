@@ -17,9 +17,8 @@ class ThemesTest extends AbstractBaseTest
 
     public function testNoThemeSetting()
     {
-        app('config')->shouldreceive('get')->with('themes')->andReturn([['theme' => null]]);
-        app('view.finder')->shouldReceive('addLocation')->never();
-
+        self::$config->shouldreceive('get')->with('themes')->andReturn([['theme' => null]]);
+        self::$finder->shouldReceive('addLocation')->never();
         $this->themes->setTheme($this->request);
 
         $this->assertEquals(null, $this->themes->getTheme());
@@ -27,9 +26,8 @@ class ThemesTest extends AbstractBaseTest
 
     public function testNullThemeSetting()
     {
-        app('config')->shouldreceive('get')->with('themes')->andReturn([['theme' => null]]);
-        app('view.finder')->shouldReceive('addLocation')->never();
-
+        self::$config->shouldreceive('get')->with('themes')->andReturn([['theme' => null]]);
+        self::$finder->shouldReceive('addLocation')->never();
         $this->themes->setTheme($this->request);
 
         $this->assertEquals(null, $this->themes->getTheme());
@@ -37,9 +35,8 @@ class ThemesTest extends AbstractBaseTest
 
     public function testBasicThemeSetting()
     {
-        app('config')->shouldreceive('get')->with('themes')->andReturn([['theme' => 'foo']]);
-        app('view.finder')->shouldReceive('addLocation')->once();
-
+        self::$config->shouldreceive('get')->with('themes')->andReturn([['theme' => 'foo']]);
+        self::$finder->shouldReceive('addLocation')->once();
         $this->themes->setTheme($this->request);
 
         $this->assertEquals('foo', $this->themes->getTheme());
