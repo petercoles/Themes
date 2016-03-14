@@ -22,6 +22,17 @@ class MatchDatesTest extends AbstractBaseTest
         $this->nextWeek = Carbon::today()->addWeek()->format('Y-m-d');
     }
 
+    /**
+     * @expectedException RunTimeException
+     */
+    public function testNoDates()
+    {
+        $config = [['match' => "dates", 'theme' => 'foo']];
+        self::$config->shouldReceive('get')->with('themes')->andReturn($config);
+        self::$finder->shouldReceive('addLocation')->never();
+        $this->themes->setTheme($this->request);
+    }
+
     public function testSingleDateNoMatch()
     {
         $config = [['match' => "dates:$this->yesterday", 'theme' => 'foo']];
@@ -51,8 +62,6 @@ class MatchDatesTest extends AbstractBaseTest
         self::$config->shouldReceive('get')->with('themes')->andReturn($config);
         self::$finder->shouldReceive('addLocation')->never();
         $this->themes->setTheme($this->request);
-
-        $this->assertEquals('foo', $this->themes->getTheme());
     }
 
     public function testDateRangeExpired()
@@ -78,56 +87,6 @@ class MatchDatesTest extends AbstractBaseTest
     public function testDateRangeInFuture()
     {
         $config = [['match' => "dates:$this->tomorrow,$this->nextWeek", 'theme' => 'foo']];
-        self::$config->shouldReceive('get')->with('themes')->andReturn($config);
-        self::$finder->shouldReceive('addLocation')->never();
-        $this->themes->setTheme($this->request);
-
-        $this->assertEquals(null, $this->themes->getTheme());
-    }
-
-    public function testStartDateOnlyNotReached()
-    {
-        $config = [['match' => "dates:$this->tomorrow,null", 'theme' => 'foo']];
-        self::$config->shouldReceive('get')->with('themes')->andReturn($config);
-        self::$finder->shouldReceive('addLocation')->never();
-        $this->themes->setTheme($this->request);
-
-        $this->assertEquals(null, $this->themes->getTheme());
-    }
-
-    public function testStartDateOnlyReached()
-    {
-        $config = [['match' => "dates:$this->today,null", 'theme' => 'foo']];
-        self::$config->shouldReceive('get')->with('themes')->andReturn($config);
-        self::$finder->shouldReceive('addLocation')->once();
-        $this->themes->setTheme($this->request);
-
-        $this->assertEquals('foo', $this->themes->getTheme());
-    }
-
-    public function testEndDateOnlyNotReached()
-    {
-        $config = [['match' => "dates:null,$this->tomorrow", 'theme' => 'foo']];
-        self::$config->shouldReceive('get')->with('themes')->andReturn($config);
-        self::$finder->shouldReceive('addLocation')->once();
-        $this->themes->setTheme($this->request);
-
-        $this->assertEquals('foo', $this->themes->getTheme());
-    }
-
-    public function testEndDateOnlyAndIsToday()
-    {
-        $config = [['match' => "dates:null,$this->today", 'theme' => 'foo']];
-        self::$config->shouldReceive('get')->with('themes')->andReturn($config);
-        self::$finder->shouldReceive('addLocation')->once();
-        $this->themes->setTheme($this->request);
-
-        $this->assertEquals('foo', $this->themes->getTheme());
-    }
-
-    public function testEndDateOnlyPassed()
-    {
-        $config = [['match' => "dates:null,$this->yesterday", 'theme' => 'foo']];
         self::$config->shouldReceive('get')->with('themes')->andReturn($config);
         self::$finder->shouldReceive('addLocation')->never();
         $this->themes->setTheme($this->request);
