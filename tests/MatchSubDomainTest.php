@@ -4,7 +4,7 @@ namespace Themes;
 
 use Mockery as m;
 
-class MatchSubDomainTest extends AbstractBaseTest
+class MatchSubdomainTest extends AbstractBaseTest
 {
     public function setUp()
     {
@@ -15,9 +15,9 @@ class MatchSubDomainTest extends AbstractBaseTest
         $this->themes = new Themes;
     }
 
-    public function testSubDomainNotMatched()
+    public function testSubdomainNotMatched()
     {
-        $config = [['match' => ['sub_domain' => 'admin'], 'theme' => 'foo']];
+        $config = [['match' => ['subdomain' => 'admin'], 'theme' => 'foo']];
         self::$config->shouldReceive('get')->with('themes')->andReturn($config);
         self::$finder->shouldReceive('addLocation')->never();
         $this->request->shouldReceive('getHost')->andReturn('www.test.tld');
@@ -26,9 +26,9 @@ class MatchSubDomainTest extends AbstractBaseTest
         $this->assertEquals(null, $this->themes->getTheme());
     }
 
-    public function testSubDomainMatched()
+    public function testSubdomainMatched()
     {
-        $config = [['match' => ['sub_domain' => 'admin'], 'theme' => 'foo']];
+        $config = [['match' => ['subdomain' => 'admin'], 'theme' => 'foo']];
         self::$config->shouldReceive('get')->with('themes')->andReturn($config);
         self::$finder->shouldReceive('addLocation')->once();
         $this->request->shouldReceive('getHost')->andReturn('admin.test.tld');
