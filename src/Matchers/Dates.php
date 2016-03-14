@@ -12,27 +12,39 @@ class Dates implements MatcherInterface
             throw new RunTimeException('Missing dates for matching');
         }
 
-        $now = date('Y-m-d');
-
         $date = explode(',', $match);
 
         if (count($date) == 1) {
-
-            if ($date[0] < $now) {
-                return false;
-            }
-            return true;
+            return $this->matchSingleDate($date[0]);
         }
 
-        if ($date[0] > $date[1]) {
-            throw new RunTimeException('End date cannot be before start date');
-        }
+        return $this->matchDateRange($date[0], $date[1]);
+    }
 
-        if ($now < $date[0]) {
+    protected function matchSingleDate($date)
+    {
+        $now = date('Y-m-d');
+
+        if ($date < $now) {
             return false;
         }
 
-        if ($date[1] < $now) {
+        return true;
+    }
+
+    protected function matchDateRange($begin, $end)
+    {
+        if ($begin > $end) {
+            throw new RunTimeException('End date cannot be before start date');
+        }
+
+        $now = date('Y-m-d');
+
+        if ($now < $begin) {
+            return false;
+        }
+
+        if ($end < $now) {
             return false; 
         }
 
