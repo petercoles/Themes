@@ -12,6 +12,8 @@ class AssetTest extends AbstractBaseTest
 
     public function setUp()
     {
+        parent::setUp();
+
         self::$url = m::mock('\Illuminate\Routing\UrlGenerator');
         self::$themes = m::mock('\Themes\Themes');
         self::$globals = m::mock();
