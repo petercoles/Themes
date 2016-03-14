@@ -17,7 +17,7 @@ class MatchDomainTest extends AbstractBaseTest
 
     public function testDomainNotMatched()
     {
-        $config = [['match' => ['domain' => 'www.test.tld'], 'theme' => 'foo']];
+        $config = [['match' => 'domain:www.test.tld', 'theme' => 'foo']];
         self::$config->shouldReceive('get')->with('themes')->andReturn($config);
         self::$finder->shouldReceive('addLocation')->never();
         $this->request->shouldReceive('getHost')->andReturn('www.not-test.tld');
@@ -28,7 +28,7 @@ class MatchDomainTest extends AbstractBaseTest
 
     public function testDomainMatched()
     {
-        $config = [['match' => ['domain' => 'www.test.tld'], 'theme' => 'foo']];
+        $config = [['match' => 'domain:www.test.tld', 'theme' => 'foo']];
         self::$config->shouldReceive('get')->with('themes')->andReturn($config);
         self::$finder->shouldReceive('addLocation')->once();
         $this->request->shouldReceive('getHost')->andReturn('www.test.tld');

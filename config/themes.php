@@ -2,12 +2,8 @@
 
 return [
 
-    'admin' => [
-        'id' => 'office',
-        'theme' => null,
-    ],
+    [
+        'theme' => null
+    ]
 
-    'site' => [
-        'theme' => null,
-    ],
 ];

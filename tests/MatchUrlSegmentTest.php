@@ -17,7 +17,7 @@ class MatchUrlSegmentTest extends AbstractBaseTest
 
     public function testUrlSegmentNotMatched()
     {
-        $config = [['match' => ['url_segment' => 'admin'], 'theme' => 'foo']];
+        $config = [['match' => 'url_segment:admin', 'theme' => 'foo']];
         self::$config->shouldReceive('get')->with('themes')->andReturn($config);
         self::$finder->shouldReceive('addLocation')->never();
         $this->request->shouldReceive('segment')->with(1)->andReturn('bar');
@@ -28,7 +28,7 @@ class MatchUrlSegmentTest extends AbstractBaseTest
 
     public function testUrlSegmentMatched()
     {
-        $config = [['match' => ['url_segment' => 'admin'], 'theme' => 'foo']];
+        $config = [['match' => 'url_segment:admin', 'theme' => 'foo']];
         self::$config->shouldReceive('get')->with('themes')->andReturn($config);
         self::$finder->shouldReceive('addLocation')->once();
         $this->request->shouldReceive('segment')->with(1)->andReturn('admin');

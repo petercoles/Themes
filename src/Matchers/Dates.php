@@ -10,23 +10,25 @@ class Dates implements MatcherInterface
     {
         $now = date('Y-m-d');
 
-        if (is_string($match)) {
-            if ($now == $match) {
+        $date = explode(',', $match);
+
+        if (count($date) == 1) {
+            if ($now == $date[0]) {
                 return true;
             }
 
             return false;
         }
 
-        if (!is_null($match[0]) && !is_null($match[1]) && $match[0] > $match[1]) {
+        if ($date[0] != 'null' && $date[1] != 'null' && $date[0] > $date[1]) {
             throw new RunTimeException('End date cannot be before start date');
         }
 
-        if (!is_null($match[0]) && $now < $match[0]) {
+        if ($date[0] != 'null' && $now < $date[0]) {
             return false;
         }
 
-        if (!is_null($match[1]) && $match[1] < $now) {
+        if ($date[1] != 'null' && $date[1] < $now) {
             return false; 
         }
 

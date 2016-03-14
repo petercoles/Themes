@@ -17,7 +17,7 @@ class MatchSubdomainTest extends AbstractBaseTest
 
     public function testSubdomainNotMatched()
     {
-        $config = [['match' => ['subdomain' => 'admin'], 'theme' => 'foo']];
+        $config = [['match' => 'subdomain:admin', 'theme' => 'foo']];
         self::$config->shouldReceive('get')->with('themes')->andReturn($config);
         self::$finder->shouldReceive('addLocation')->never();
         $this->request->shouldReceive('getHost')->andReturn('www.test.tld');
@@ -28,7 +28,7 @@ class MatchSubdomainTest extends AbstractBaseTest
 
     public function testSubdomainMatched()
     {
-        $config = [['match' => ['subdomain' => 'admin'], 'theme' => 'foo']];
+        $config = [['match' => 'subdomain:admin', 'theme' => 'foo']];
         self::$config->shouldReceive('get')->with('themes')->andReturn($config);
         self::$finder->shouldReceive('addLocation')->once();
         $this->request->shouldReceive('getHost')->andReturn('admin.test.tld');

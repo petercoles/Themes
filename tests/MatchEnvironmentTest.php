@@ -17,7 +17,7 @@ class MatchEnvironmentTest extends AbstractBaseTest
 
     public function testEnvironmentNotMatched()
     {
-        $config = [['match' => ['environment' => 'local'], 'theme' => 'foo']];
+        $config = [['match' => 'environment:local', 'theme' => 'foo']];
         self::$config->shouldReceive('get')->with('themes')->andReturn($config);
         self::$app->shouldReceive('environment')->andReturn('production');
         self::$finder->shouldReceive('addLocation')->never();
@@ -28,7 +28,7 @@ class MatchEnvironmentTest extends AbstractBaseTest
 
     public function testDomainMatched()
     {
-        $config = [['match' => ['environment' => 'local'], 'theme' => 'foo']];
+        $config = [['match' => 'environment:local', 'theme' => 'foo']];
         self::$config->shouldReceive('get')->with('themes')->andReturn($config);
         self::$finder->shouldReceive('addLocation')->once();
         self::$app->shouldReceive('environment')->andReturn('local');
