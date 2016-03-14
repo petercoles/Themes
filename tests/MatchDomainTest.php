@@ -8,8 +8,7 @@ class MatchDomainTest extends AbstractBaseTest
 {
     public function setUp()
     {
-        self::$config = m::mock('\\Illuminate\\Config\\Repository');
-        self::$finder = m::mock('\\Themes\\FileViewFinder');
+        parent::setUp();
 
         $this->request = m::mock('\\Illuminate\\Http\\Request');
 
