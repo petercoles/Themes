@@ -26,7 +26,7 @@ class Dates implements MatcherInterface
             return false;
         }
 
-        if (!is_null($match[1]) && $now > $match[1]) {
+        if (!is_null($match[1]) && $match[1] < $now) {
             return false; 
         }
 
