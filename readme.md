@@ -4,7 +4,7 @@
 [![Build Status](https://scrutinizer-ci.com/g/petercoles/Themes/badges/build.png?b=master)](https://scrutinizer-ci.com/g/petercoles/Themes/build-status/master)
 
 ## Introduction
-This is far from being the only theme management package available for Laravel (see below). Each has its own approach. This one's pout of uniqueness is its no-coding approach. Instead you simply install it and set config rules and the package takes care of their interpretation and execution.
+This is far from being the only theme management package available for Laravel (see below). Each has its own approach. This one's point of uniqueness is its no-coding approach. Instead you simply install it, set config rules and the package takes care of their interpretation and execution.
 
 ## Other Laravel Theme Packages that you might want to consider
 + [teeplus/theme](https://packagist.org/packages/teepluss/theme)
