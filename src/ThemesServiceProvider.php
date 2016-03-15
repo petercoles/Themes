@@ -42,6 +42,9 @@ class ThemesServiceProvider extends ServiceProvider
 
             return new FileViewFinder($app['files'], $paths);
         });
+
+        // Apply this finder to the already-registered view factory
+        $this->app['view']->setFinder($this->app['view.finder']);
     }
 
     /**
