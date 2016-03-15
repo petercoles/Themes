@@ -58,11 +58,13 @@ class Themes
         $rules = $this->explodeRules($match['match']);
 
         foreach ($rules as $rule) {
-            if ($this->handleRule($request, $rule)) {
-                $this->theme = $match['theme'];
-                return true;
+            if (!$this->handleRule($request, $rule)) {
+                return false;
             }
         }
+
+        $this->theme = $match['theme'];
+        return true;
     }
 
     /**
