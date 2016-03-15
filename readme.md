@@ -7,10 +7,10 @@
 This is far from being the only theme management package available for Laravel (see below). Each has its own approach. This one's pout of uniqueness is its no-coding approach. Instead you simply install it and set config rules and the package takes care of their interpretation and execution.
 
 ## Other Laravel Theme Packages that you might want to consider
-[teeplus/theme](https://packagist.org/packages/teepluss/theme)
-[igaster/laravel-theme](https://packagist.org/packages/igaster/laravel-theme)
-[karlomikus/theme](https://packagist.org/packages/karlomikus/theme)
-[buzz/laravel-theme](https://packagist.org/packages/buzz/laravel-theme)
++ [teeplus/theme](https://packagist.org/packages/teepluss/theme)
++ [igaster/laravel-theme](https://packagist.org/packages/igaster/laravel-theme)
++ [karlomikus/theme](https://packagist.org/packages/karlomikus/theme)
++ [buzz/laravel-theme](https://packagist.org/packages/buzz/laravel-theme)
 
 ## Installation
 
@@ -50,7 +50,7 @@ php artisan vendor:publish
 or if you only want to publish this package
 
 ```
-php artisan vendor:publish --provider=Themes\ThemesServiceProvider"
+php artisan vendor:publish --provider="Themes\ThemesServiceProvider"
 ```
 
 The resulting themes config file has a single default setting that will leave your site untouched. To start controlling the themes used, see the next section ...
