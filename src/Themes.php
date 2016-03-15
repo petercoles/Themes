@@ -50,16 +50,13 @@ class Themes
      */
     protected function testMatch($request, $match)
     {
-        if (!isset($match['match'])) {
-            $this->theme = $match['theme'];
-            return true;
-        }
+        if (isset($match['match'])) {
+            $rules = $this->explodeRules($match['match']);
 
-        $rules = $this->explodeRules($match['match']);
-
-        foreach ($rules as $rule) {
-            if (!$this->handleRule($request, $rule)) {
-                return false;
+            foreach ($rules as $rule) {
+                if (!$this->handleRule($request, $rule)) {
+                    return false;
+                }
             }
         }
 
