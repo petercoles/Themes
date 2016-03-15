@@ -60,6 +60,7 @@ class Themes
             }
         }
 
+        // nothing to match or all matches succeeded
         $this->theme = $match['theme'];
         return true;
     }
