@@ -1,6 +1,6 @@
 <?php
 
-namespace Themes;
+namespace PeterColes\Themes;
 
 use Carbon\Carbon;
 use Mockery as m;

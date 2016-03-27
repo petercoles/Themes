@@ -1,6 +1,6 @@
 <?php
 
-namespace Themes;
+namespace PeterColes\Themes;
 
 use Illuminate\View\FileViewFinder as IlluminateFileViewFinder;
 

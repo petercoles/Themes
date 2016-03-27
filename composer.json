@@ -28,7 +28,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Themes\\": "src/"
+      "PeterColes\\Themes\\": "src/"
     },
     "files": [
         "src/helpers.php"

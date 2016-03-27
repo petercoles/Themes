@@ -1,6 +1,6 @@
 <?php
 
-namespace Themes;
+namespace PeterColes\Themes;
 
 class Themes
 {
@@ -85,7 +85,7 @@ class Themes
     {
         $rule = explode(':', $rule);
         $params = isset($rule[1]) ? $rule[1] : null;
-        $class = '\\Themes\\Matchers\\'.studly_case($rule[0]);
+        $class = '\\PeterColes\\Themes\\Matchers\\'.studly_case($rule[0]);
 
         return (new $class)->handle($request, $params);
     }

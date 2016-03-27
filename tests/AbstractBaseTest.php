@@ -1,6 +1,6 @@
 <?php
 
-namespace Themes;
+namespace PeterColes\Themes;
 
 use Mockery as m;
 
@@ -17,7 +17,7 @@ abstract class AbstractBaseTest extends \PHPUnit_Framework_TestCase
         self::$app->shouldReceive('basePath')->with('foo/bar')->andReturn('/home/test/themes/foo/bar');
 
         self::$config = m::mock('\\Illuminate\\Config\\Repository');
-        self::$finder = m::mock('\\Themes\\FileViewFinder');
+        self::$finder = m::mock('\\PeterColes\\Themes\\FileViewFinder');
     }
 
     public function tearDown()

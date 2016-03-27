@@ -1,6 +1,6 @@
 <?php
 
-namespace Themes;
+namespace PeterColes\Themes;
 
 if (!function_exists('themes_path')) {
     /**

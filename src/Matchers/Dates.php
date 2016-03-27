@@ -1,6 +1,6 @@
 <?php
 
-namespace Themes\Matchers;
+namespace PeterColes\Themes\Matchers;
 
 use RunTimeException;
 

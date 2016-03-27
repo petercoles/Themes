@@ -11,23 +11,23 @@ use Mockery as m;
 function app($class = null)
 {
     if (!$class) {
-        return Themes\AbstractBaseTest::$app;
+        return PeterColes\Themes\AbstractBaseTest::$app;
     }
 
     if ($class == 'url') {
-        return Themes\AssetTest::$url;
+        return PeterColes\Themes\AssetTest::$url;
     }
 
     if ($class == 'themes') {
-        return Themes\AssetTest::$themes;
+        return PeterColes\Themes\AssetTest::$themes;
     }
 
     if ($class == 'config') {
-        return Themes\AbstractBaseTest::$config;
+        return PeterColes\Themes\AbstractBaseTest::$config;
     }
 
     if ($class == 'view.finder') {
-        return Themes\AbstractBaseTest::$finder;
+        return PeterColes\Themes\AbstractBaseTest::$finder;
     }
 }
 

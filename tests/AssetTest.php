@@ -1,6 +1,6 @@
 <?php
 
-namespace Themes;
+namespace PeterColes\Themes;
 
 use Mockery as m;
 
@@ -14,8 +14,8 @@ class AssetTest extends AbstractBaseTest
     {
         parent::setUp();
 
-        self::$url = m::mock('\Illuminate\Routing\UrlGenerator');
-        self::$themes = m::mock('\Themes\Themes');
+        self::$url = m::mock('\\Illuminate\\Routing\\UrlGenerator');
+        self::$themes = m::mock('\\PeterColes\\Themes\\Themes');
         self::$globals = m::mock();
     }
 

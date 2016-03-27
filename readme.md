@@ -25,7 +25,7 @@ then add the service provider to the providers entry in your config/app.php file
 ```
     'providers' => [
         // ...
-        Themes\ThemesServiceProvider::class,
+        PeterColes\Themes\ThemesServiceProvider::class,
         // ...
     ],
 ```
@@ -35,7 +35,7 @@ then register the middleware in your app/Http/Kernal.php file
 ```
     protected $middleware = [
         // ...
-        \Themes\ThemesMiddleware::class,
+        \PeterColes\Themes\ThemesMiddleware::class,
     ];
 ```
 
@@ -50,7 +50,7 @@ php artisan vendor:publish
 or if you only want to publish this package
 
 ```
-php artisan vendor:publish --provider="Themes\ThemesServiceProvider"
+php artisan vendor:publish --provider="PeterColes\Themes\ThemesServiceProvider"
 ```
 
 The resulting themes config file has a single default setting that will leave your site untouched. To start controlling the themes used, see the next section ...
