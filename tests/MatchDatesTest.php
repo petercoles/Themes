@@ -15,6 +15,8 @@ class MatchDatesTest extends AbstractBaseTest
 
         $this->themes = new Themes;
 
+        self::$files->shouldReceive('exists')->andReturn(false);
+
         $this->lastWeek = Carbon::today()->subWeek()->format('Y-m-d');
         $this->yesterday = Carbon::yesterday()->format('Y-m-d');
         $this->today = Carbon::today()->format('Y-m-d');

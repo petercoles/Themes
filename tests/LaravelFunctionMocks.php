@@ -29,6 +29,10 @@ function app($class = null)
     if ($class == 'view.finder') {
         return PeterColes\Themes\AbstractBaseTest::$finder;
     }
+
+    if ($class == 'files') {
+        return PeterColes\Themes\AbstractBaseTest::$files;
+    }
 }
 
 /*

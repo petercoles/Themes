@@ -17,6 +17,8 @@ class AssetTest extends AbstractBaseTest
         self::$url = m::mock('\\Illuminate\\Routing\\UrlGenerator');
         self::$themes = m::mock('\\PeterColes\\Themes\\Themes');
         self::$globals = m::mock();
+
+        self::$files->shouldReceive('exists')->andReturn(false);
     }
 
     protected function buildContainer($theme, $secure = null)

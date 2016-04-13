@@ -7,15 +7,18 @@ class Themes
     protected $theme = null;
 
     /**
-     * get the name of the theme for this context.
+     * Get the name of the theme for this context.
+     * Make its path available for view selection
+     * and override config settings where needed.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return boolean
+     * @return void
      */
     public function setTheme($request)
     {
         $this->findMatch($request);
-        $this->addThemePath();
+        $this->addThemeViewPath();
+        $this->applyThemeConfig();
     }
 
     /**
@@ -46,7 +49,7 @@ class Themes
     /**
      * If there's no match critera or all rules are matched, set the theme and exit.
      *
-     * @return void|boolean
+     * @return boolean
      */
     protected function testMatch($request, $match)
     {
@@ -95,10 +98,27 @@ class Themes
      *
      * @return void
      */
-    protected function addThemePath()
+    protected function addThemeViewPath()
     {
         if ($this->theme) {
             app('view.finder')->addLocation(themes_path($this->theme.'/views'));
+        }
+    }
+
+    /**
+     * Override configs with theme-specific settings.
+     *
+     * @return void
+     */
+    protected function applyThemeConfig()
+    {
+        $path = themes_path($this->theme.'/config');
+
+        if (app('files')->exists($path)) {
+            foreach (app('files')->allFiles($path) as $file) {
+                $key = str_replace('.'.$file->getExtension(), '', $file->getFilename());
+                app('config')->set($key, require $file->getPathname());
+            }
         }
     }
 }

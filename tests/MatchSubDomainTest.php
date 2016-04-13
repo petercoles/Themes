@@ -12,6 +12,8 @@ class MatchSubdomainTest extends AbstractBaseTest
 
         $this->request = m::mock('\\Illuminate\\Http\\Request');
 
+        self::$files->shouldReceive('exists')->andReturn(false);
+
         $this->themes = new Themes;
     }
 
