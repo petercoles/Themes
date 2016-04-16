@@ -18,7 +18,7 @@ class ThemesServiceProvider extends ServiceProvider
         ]);
 
         // Apply themes middleware to all routes
-        $kernel->prependMiddlewareToGroup(ThemesMiddleware::class);
+        $kernel->prependMiddleware(ThemesMiddleware::class);
     }
 
     /**
