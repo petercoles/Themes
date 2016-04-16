@@ -11,11 +11,14 @@ class ThemesServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(\Illuminate\Contracts\Http\Kernel $kernel)
     {
         $this->publishes([
             __DIR__.'/../config/themes.php' => config_path('themes.php'),
         ]);
+
+        // Apply themes middleware to all routes
+        $kernel->prependMiddlewareToGroup(ThemesMiddleware::class);
     }
 
     /**
@@ -28,8 +31,6 @@ class ThemesServiceProvider extends ServiceProvider
         $this->registerViewFinder();
 
         $this->registerThemes();
-
-        $this->registerMiddleware();
     }
 
     /**
@@ -59,15 +60,5 @@ class ThemesServiceProvider extends ServiceProvider
         $this->app->singleton('themes', function() {
             return new Themes;
         });
-    }
-
-    /**
-     * Register middleware.
-     *
-     * @return void
-     */
-    protected function registerMiddleware()
-    {
-        $this->app['router']->prependMiddlewareToGroup('web', ThemesMiddleware::class);
     }
 }
