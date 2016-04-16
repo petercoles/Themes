@@ -30,7 +30,7 @@ then add the service provider to the providers entry in your config/app.php file
     ],
 ```
 
-then register the middleware in your app/Http/Kernal.php file
+this will cause the themes middleware to be applied to all routes in the "web" group. If you have defined your own groups you can the middleware to them in your app/Http/Kernal.php file, or apply it to all routes (as below), though this manual registration will rarely be necessary.
 
 ```
     protected $middleware = [

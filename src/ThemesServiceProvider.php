@@ -28,6 +28,8 @@ class ThemesServiceProvider extends ServiceProvider
         $this->registerViewFinder();
 
         $this->registerThemes();
+
+        $this->registerMiddleware();
     }
 
     /**
@@ -57,5 +59,15 @@ class ThemesServiceProvider extends ServiceProvider
         $this->app->singleton('themes', function() {
             return new Themes;
         });
+    }
+
+    /**
+     * Register middleware.
+     *
+     * @return void
+     */
+    protected function registerMiddleware()
+    {
+        $this->app['router']->prependMiddlewareToGroup('web', ThemesMiddleware::class);
     }
 }
