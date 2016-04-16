@@ -3,6 +3,7 @@
 namespace PeterColes\Themes;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\Http\Kernel;
 
 class ThemesServiceProvider extends ServiceProvider
 {
@@ -11,7 +12,7 @@ class ThemesServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(\Illuminate\Contracts\Http\Kernel $kernel)
+    public function boot(Kernel $kernel)
     {
         $this->publishes([
             __DIR__.'/../config/themes.php' => config_path('themes.php'),
