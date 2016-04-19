@@ -52,7 +52,58 @@ The resulting themes config file has a single default setting that will leave yo
 
 By default this package will continue to use your views and assets in their default Laravel locations. To start to over-ride these defaults with context-based alternatives, first create a theme folder at the same level as your Laravel's resource folder. Inside that create a folder for one or more themes.
 
-To be continued ...
+For example:
+```
+.
+|-- app
+|-- ...
+|-- resources
+|-- storage
+|-- themes
+    |-- myFirstTheme
+    |-- mySecondTheme
+|--vendor
+```
+Within each theme place your config, asset and views files. For example:
+```
+.
+|-- themes
+    |-- myFirstTheme
+        |-- config
+        |-- assets
+            |-- img
+            |-- js
+            |-- sass
+        |-- views
+```
+
+### Configs
+
+Config files will be detected and loaded automatically. They will _completely replace_ any files with the same name in the normal config folder, rather than overriding individual settings.
+
+### Assets
+
+There is no automatic management of assets. Elixir is recommended, but any similar build system can be used to process, prepare and place them in you site's public folder. To avoid collisions, it's recommended that you place them in subfolders with the same name as the theme's folder, for example:
+```
+.
+|-- public
+    |-- myFirstTheme
+        |-- img
+        |-- js
+        |-- sass
+```
+If you do so, then the theme_assets() and secure_theme_assets() helper functions are available for inserting links to the assets into view. For example the following will autodetect which theme is in use and point to the appropriate scripts file:
+```
+theme_assets('app.js') // will generate "http://www.example.com/theme-name/app.js" 
+```
+
+### Views
+
+Views are detected automatically. If your route, your controller or another view calls for a view and it's present in your theme, that's the version that will be used, otherwise it will look for the view in the normal views hierarchy, and if it doesn't find it there either, the normal exception will be thrown.
+
+### ... one more thing
+
+There's also a helper to points to the themes folder and, like other path helpers in Laravel will prepend any path name received as a string parameter with the path to the themes (and including) the themes folder.
 
 ## Matches
 
