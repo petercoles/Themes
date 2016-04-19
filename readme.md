@@ -103,7 +103,7 @@ Views are detected automatically. If your route, your controller or another view
 
 ### ... one more thing
 
-There's also a helper to points to the themes folder and, like other path helpers in Laravel will prepend any path name received as a string parameter with the path to the themes (and including) the themes folder.
+There's also a helper, ```themes_path()``` to points to the themes folder and, like other path helpers in Laravel will prepend any path name received as a string parameter with the path to the themes (and including) the themes folder.
 
 ## Matches
 
