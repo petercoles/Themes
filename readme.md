@@ -3,6 +3,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/petercoles/Themes/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/petercoles/Themes/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/petercoles/Themes/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/petercoles/Themes/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/petercoles/Themes/badges/build.png?b=master)](https://scrutinizer-ci.com/g/petercoles/Themes/build-status/master)
+[![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
 
 ## Introduction
 This is far from being the only theme management package available for Laravel (see below). Each has its own approach. This one's point of uniqueness is its no-coding approach. Instead you simply install it, set config rules and the package takes care of their interpretation and execution.
