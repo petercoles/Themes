@@ -19,6 +19,10 @@ function app($class = null)
     }
 
     if ($class == 'themes') {
+        if (isset(debug_backtrace()[1]['class']) && debug_backtrace()[1]['class'] == 'PeterColes\Themes\ThemesMiddleware') {
+            return new PeterColes\Themes\Themes;
+        }
+
         return PeterColes\Themes\AssetTest::$themes;
     }
 
