@@ -99,7 +99,7 @@ theme_assets('app.js') // will generate "http://www.example.com/theme-name/app.j
 
 ### Views
 
-Views are detected automatically. If your route, your controller or another view calls for a view and it's present in your theme, that's the version that will be used, otherwise it will look for the view in the normal views hierarchy, and if it doesn't find it there either, the normal exception will be thrown.
+Views are detected automatically. If your route, your controller or another view calls for a view that is present in your theme, that's the version that will be used, otherwise it will look for the view in the normal views hierarchy, and if it doesn't find it there either, the normal exception will be thrown. So if the current theme is "foo" then ```view('pages.about')``` will look first for ```themes/foo/views/pages/about.blade.php``` and if not found then for ```resources/views/pages/about.blade.php```.
 
 ### ... one more thing
 
@@ -107,20 +107,83 @@ There's also a helper, ```themes_path()``` to build the file path to the themes 
 
 ## Setting Rules for Theme Selection
 
-To control the selection of themes, rules are added to the themes config file. The package will process each set of rules in turn and if a match is found will set the themes to the given value.
+To control the selection of themes, you can rules to the themes config file. These rules follw the same syntax as Laravel's validation rules. The package will process each set of rules in turn and if a match is found will set the themes to the given value. For example the themes config:
 
-Supported matches (more to come) are:
+```
+<?php
+return [
+    [
+        'match' => 'subdomain:admin',
+        'theme' => 'adminV1'
+    ],
+    [
+        'theme' => 'siteV2'
+    ]
 
-+ dates
-+ domain
-+ environment
-+ http_scheme
-+ subdomain
-+ url_segment
+];
 
-Planned include:
+```
+will cause any route that has a subdomain of "admin" to use the template also named "adminV1". All other routes will use the template "siteV2".
+
+It is also possible, even normal, to use several criteria in a single match status, with each separated by a pipe ("|"). For example:
+```
+[
+    'match' => 'domain:www.client.com|dates:2016-02-14',
+    'theme' => 'valentines'
+],
+``` 
+
+The matcher works from the top of the config file and the first set where all the match criteria are met is the winning theme.
+
+If no match criteria are provided for a theme, that is treated as a successful match (see the default in the last but one example).
+
+Whitespace is automatically stripped from match statements, so feel free to lay them out however, you like ...
+```
+[
+    'match' => '
+        domain: www.anotherclient.com |
+        dates: 2016-12-14, 2016-12-26
+    ',
+    'theme' => 'xmas'
+],
+```
+
+Currently supported matchers are:
+
+#### dates
+
+The rule must receive at least one date and match the server time against that date. If it receives a second date, as in the example above, then it will treat the two dates as the outers of an inclusive date range. dates must be in international format. It's likely that this will change to become more flexible in later versions.
+
+#### domain
+
+The rule will match if the FQDN is exactly the same as that given, so changes of subdomain or TLD will cause the match to fail. If you use different domain names in development, staging and production, you may wish to include several domain rules in a match group. Please not that it's likely that this behaviour will change to be a little more friendly in future versions of this package.
+
+#### environment
+
+The rule will match the paramter given against the value of Laravel's APP_ENV global variable. This is most commonly used as a supplementary criteria to safeguard against themes under development leaking out to a production environment.
+
+#### http_scheme
+
+Allows http routes to receive different theme to https routes. The rule takes http or https as its parameter.
+
+#### subdomain
+
+This rule allows just the subdomain to be matched.
+
+#### url_segment
+
+The rule currently receives a single parameter and compares it to the first segment in the route. It's another of those for which expansion and more flexiblity is planned, so use with care.
+
+## Roadmap
+
+More matchers are planned including:
 
 + country
 + language
++ query parameter
 
-To be continued ...
+Some existing matchers will be reworked to make them more friendly. It is recommended that you not tie your project to the dev-master and instead target a specific branch. Breaking changes will be clearly stated in the (currently non-existent) change log.
+
+## Contributions
+
+Contributions and suggestions are welcome. Code should be placed on a feature branch and include tests.
