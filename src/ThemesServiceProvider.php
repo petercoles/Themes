@@ -3,7 +3,6 @@
 namespace PeterColes\Themes;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Foundation\Http\Kernel;
 
 class ThemesServiceProvider extends ServiceProvider
 {
@@ -12,14 +11,14 @@ class ThemesServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(Kernel $kernel)
+    public function boot()
     {
         $this->publishes([
             __DIR__.'/../config/themes.php' => config_path('themes.php'),
         ]);
 
         // Apply themes middleware to all routes
-        $kernel->prependMiddleware(ThemesMiddleware::class);
+        $this->app['Illuminate\Contracts\Http\Kernel']->prependMiddleware(ThemesMiddleware::class);
     }
 
     /**
