@@ -2,11 +2,11 @@
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/petercoles/Themes/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/petercoles/Themes/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/petercoles/Themes/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/petercoles/Themes/?branch=master)
-[![Build Status](https://scrutinizer-ci.com/g/petercoles/Themes/badges/build.png?b=master)](https://scrutinizer-ci.com/g/petercoles/Themes/build-status/master)
+[![Build Status](https://travis-ci.org/petercoles/Themes.svg?branch=master)](https://travis-ci.org/petercoles/Themes)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
 
 ## Introduction
-This is far from being the only theme management package available for Laravel (see below). Each has its own approach. This one's point of uniqueness is its no-coding approach. Instead you simply install it, set config rules and the package takes care of their interpretation and execution.
+This is far from being the only theme management package available for Laravel (see below). Each has its own approach. This one's point of uniqueness is its no-coding approach. Instead you simply install it, set config rules and the package uses those rules to determine which theme to use.
 
 ## Other Laravel Theme Packages that you might want to consider
 + [teeplus/theme](https://packagist.org/packages/teepluss/theme)
@@ -48,7 +48,7 @@ php artisan vendor:publish --provider="PeterColes\Themes\ThemesServiceProvider"
 
 The resulting themes config file has a single default setting that will leave your site untouched. To start controlling the themes used, see the next section ...
 
-## Usage
+## Creating Your Themes
 
 By default this package will continue to use your views and assets in their default Laravel locations. To start to over-ride these defaults with context-based alternatives, first create a theme folder at the same level as your Laravel's resource folder. Inside that create a folder for one or more themes.
 
@@ -103,9 +103,11 @@ Views are detected automatically. If your route, your controller or another view
 
 ### ... one more thing
 
-There's also a helper, ```themes_path()``` to points to the themes folder and, like other path helpers in Laravel will prepend any path name received as a string parameter with the path to the themes (and including) the themes folder.
+There's also a helper, ```themes_path()``` to build the file path to the themes folder and, like other path helpers in Laravel will prepend that path to any received as a string parameter.
 
-## Matches
+## Setting Rules for Theme Selection
+
+To control the selection of themes, rules are added to the themes config file. The package will process each set of rules in turn and if a match is found will set the themes to the given value.
 
 Supported matches (more to come) are:
 
