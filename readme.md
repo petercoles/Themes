@@ -182,7 +182,7 @@ More matchers are planned including:
 + language
 + query parameter
 
-Some existing matchers will be reworked to make them more friendly. It is recommended that you not tie your project to the dev-master and instead target a specific branch. Breaking changes will be clearly stated in the (currently non-existent) change log.
+Some existing matchers will be reworked to make them more friendly. *It is recommended that you not tie your project to the dev-master and instead target a specific branch*. Breaking changes will be clearly stated in the (currently non-existent) change log and the package will use semantic versioning so that targetting tags such as "^0.1" or "^0" will not expose you to API changes.
 
 ## Contributions
 
