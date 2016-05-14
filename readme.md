@@ -1,5 +1,6 @@
 # Themes for Laravel
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/88bccb4b-4086-449b-a892-f10610e50250/mini.png)](https://insight.sensiolabs.com/projects/88bccb4b-4086-449b-a892-f10610e50250)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/petercoles/Themes/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/petercoles/Themes/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/petercoles/Themes/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/petercoles/Themes/?branch=master)
 [![Build Status](https://travis-ci.org/petercoles/Themes.svg?branch=master)](https://travis-ci.org/petercoles/Themes)
