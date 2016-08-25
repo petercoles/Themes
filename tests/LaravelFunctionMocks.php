@@ -5,7 +5,7 @@ use Mockery as m;
 /*
  * For unit testing we return mocks of the relevant classes
  * that would be bound to the Laravel application container
- * Note: this file must not benamespaced as we need these
+ * Note: this file must not be namespaced as we need these
  * helper mocks to be available globally
  */
 function app($class = null)
