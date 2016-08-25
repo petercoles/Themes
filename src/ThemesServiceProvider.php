@@ -94,7 +94,7 @@ class ThemesServiceProvider extends ServiceProvider
     {
         Route::group([
             'middleware' => ['api', 'auth:api'],
-            'namespace' => $this->namespace,
+            'namespace' => 'App\Http\Controllers',
             'prefix' => 'api',
         ], function ($router) {
             require basepath('themes/'.$this->app['themes']->getTheme().'routes/api.php');
