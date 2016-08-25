@@ -2,10 +2,23 @@
 
 namespace PeterColes\Themes;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class ThemesServiceProvider extends ServiceProvider
 {
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->registerViewFinder();
+
+        $this->registerThemes();
+    }
+
     /**
      * Perform post-registration booting of services.
      *
@@ -17,20 +30,11 @@ class ThemesServiceProvider extends ServiceProvider
             __DIR__.'/../config/themes.php' => config_path('themes.php'),
         ]);
 
-        // Apply themes middleware to all routes
-        $this->app['Illuminate\Contracts\Http\Kernel']->prependMiddleware(ThemesMiddleware::class);
-    }
+        $this->app['themes']->setTheme($this->app['request']);
 
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->registerViewFinder();
+        $this->mapWebRoutes();
 
-        $this->registerThemes();
+        $this->mapApiRoutes();
     }
 
     /**
@@ -59,6 +63,41 @@ class ThemesServiceProvider extends ServiceProvider
     {
         $this->app->singleton('themes', function() {
             return new Themes;
+        });
+    }
+
+    /**
+     * Define the "web" routes for the theme.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapWebRoutes()
+    {
+        Route::group([
+            'middleware' => 'web',
+            'namespace' => 'App\Http\Controllers',
+        ], function ($router) {
+            require base_path('themes/'.$this->app['themes']->getTheme().'/routes/web.php');
+        });
+    }
+
+    /**
+     * Define the "api" routes for the theme.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapApiRoutes()
+    {
+        Route::group([
+            'middleware' => ['api', 'auth:api'],
+            'namespace' => $this->namespace,
+            'prefix' => 'api',
+        ], function ($router) {
+            require basepath('themes/'.$this->app['themes']->getTheme().'routes/api.php');
         });
     }
 }
