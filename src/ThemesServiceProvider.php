@@ -97,7 +97,7 @@ class ThemesServiceProvider extends ServiceProvider
             'namespace' => 'App\Http\Controllers',
             'prefix' => 'api',
         ], function ($router) {
-            require base_path('themes/'.$this->app['themes']->getTheme().'routes/api.php');
+            require base_path('themes/'.$this->app['themes']->getTheme().'/routes/api.php');
         });
     }
 }
