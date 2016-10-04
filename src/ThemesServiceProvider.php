@@ -79,12 +79,13 @@ class ThemesServiceProvider extends ServiceProvider
             'middleware' => 'web',
             'namespace' => 'App\Http\Controllers',
         ], function ($router) {
-            require base_path('themes/'.$this->app['themes']->getTheme().'/routes/web.php');
+            $this->loadRouteFile('web');
         });
     }
 
     /**
-     * Define the "api" routes for the theme.
+     * Define the "api" routes for the theme. Routes are in two groups, those requiring
+     * a user to be authenticated and another for routes that don't require any authentication.
      *
      * These routes are typically stateless.
      *
@@ -97,7 +98,28 @@ class ThemesServiceProvider extends ServiceProvider
             'namespace' => 'App\Http\Controllers',
             'prefix' => 'api',
         ], function ($router) {
-            require base_path('themes/'.$this->app['themes']->getTheme().'/routes/api.php');
+            $this->loadRouteFile('api');
         });
+
+        Route::group([
+            'middleware' => ['api'],
+            'namespace' => 'App\Http\Controllers',
+            'prefix' => 'api',
+        ], function ($router) {
+            $this->loadRouteFile('api-no-auth');
+        });
+    }
+
+    /**
+     * Load route file, but only after checking whether it exists in the theme.
+     *
+     * @return void
+     */
+    protected function loadRouteFile($routeFile)
+    {
+        $routeFile = base_path('themes/'.$this->app['themes']->getTheme().'/routes/'.$routeFile.'.php');
+        if (file_exists($routeFile)) {
+            require $routeFile;
+        }
     }
 }
