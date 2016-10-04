@@ -101,7 +101,7 @@ class Themes
     protected function addThemeViewPath()
     {
         if ($this->theme) {
-            app('view.finder')->addLocation(themes_path($this->theme.'/views'));
+            app('view.finder')->addLocation(themes_path($this->theme.'/resources/views'));
         }
     }
 

@@ -71,11 +71,12 @@ Within each theme place your config, asset and views files. For example:
 |-- themes
     |-- myFirstTheme
         |-- config
-        |-- assets
-            |-- img
-            |-- js
-            |-- sass
-        |-- views
+        |-- resources
+            |-- assets
+                |-- img
+                |-- js
+                |-- sass
+            |-- views
 ```
 
 ### Configs
